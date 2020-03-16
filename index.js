@@ -2,16 +2,16 @@
 const express = require('express')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
-const mongoose = require('mongoose').set('debug', true);
+//const mongoose = require('mongoose').set('debug', true);
 const path = require('path');
 require('dotenv').config();
 require('./services/passport.js')
 const compression = require('compression')
-const config = require('../ecommerce-react-master/config');
+//const config = require('../ecommerce-react-master/config');
 
 const env = process.env.NODE_ENV || 'development';
 
-mongoose.connect(env === 'development' ? config.DB_URI_DEV : config.DB_URI, {useUnifiedTopology: true, useNewUrlParser: true})
+//mongoose.connect(env === 'development' ? config.DB_URI_DEV : config.DB_URI, {useUnifiedTopology: true, useNewUrlParser: true})
 
 const app = express()
 app.use(compression())

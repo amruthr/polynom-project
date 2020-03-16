@@ -1,7 +1,11 @@
 {
-  "name": "ecommerce-react",
+  "name": "myindiaoffers",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "10.15.0",
+    "yarn": "1.19.1"
+  },
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
