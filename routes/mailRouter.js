@@ -6,13 +6,13 @@ router.post('/',(req, res)=>{
    var transport = nodemailer.createTransport({
         service:'gmail',
          auth: {
-                     user: "amruthjoshwa@gmail.com",
-                     pass: "gkqxjqecduvjsdpz"
+                     user: "registeratmio@gmail.com",
+                     pass: "sjlvafegzbccsskc"
                 }
             });
         var mailOptions = {
-                from: "amruthjoshwa@gmail.com", 
-                to: "rodriguesaj.ofc@gmail.com", 
+                from: "registeratmio@gmail.com",
+                to: "Register.mio@gmail.com", 
                 subject: req.body.name +" from "+req.body.store+ " just registered",
                 body: "name:"+req.body.name +
                 "name: "+req.body.name +

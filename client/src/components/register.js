@@ -24,9 +24,12 @@ class AdminFormAddItem extends Component {
                 stateval:false,
                  districtval:false,
                   noofstoresval:false,
-                  validated:false
+                  validated:false,
+                  kdist : []
     };
   }
+
+ 
 
 componentDidMount(){
  
@@ -77,6 +80,54 @@ componentDidMount(){
   enableTagsInput =(e) => {this.setState({taginput: false}) , this.setState({state:''}) }
   enablePlacesInput =(e) => {this.setState({placeinput: false}) , this.setState({place:''}) }
   render() {
+
+     const districts = [
+      "Bagalkot",
+      "Ballari (Bellary)",
+      "Belagavi (Belgaum)",
+      "Bengaluru (Bangalore) Rural",
+      "Bengaluru (Bangalore) Urban",
+      "Bidar",
+      "Chamarajanagar",
+      "Chikballapur",
+      "Chikkamagaluru (Chikmagalur)",
+      "Chitradurga",
+      "Dakshina Kannada",
+      "Davangere",
+      "Dharwad",
+      "Gadag",
+      "Hassan",
+      "Haveri",
+      "Kalaburagi (Gulbarga)",
+      "Kodagu",
+      "Kolar",
+      "Koppal",
+      "Mandya",
+      "Mysuru (Mysore)",
+      "Raichur",
+      "Ramanagara",
+      "Shivamogga (Shimoga)",
+      "Tumakuru (Tumkur)",
+      "Udupi",
+      "Uttara Kannada (Karwar)",
+      "Vijayapura (Bijapur)",
+      "Yadgir",
+   ]
+
+ 
+ const CategoryData = ()=>{
+  return (
+    <div>
+   {districts.map(x=>
+    <DropdownItem onClick={this.onChangeDistrict} value= {x} >{x}</DropdownItem>      
+   )
+ }
+   </div>
+ )
+}
+
+    
+  
  
     const { name, store, phone, state, district, noofstores } = this.state
     const buttonstyle = {
@@ -94,7 +145,7 @@ componentDidMount(){
       <Form style={{fontFamily:'Sen ', background:'aliceblue', padding:'2px 20px', color:'#7d858c', fontSize:'10px'}}>
         <FormGroup>
           <Label for="exampleEmail">Your name</Label>
-          <Input autofocus={true} invalid={this.state.nameval} placeholder='Name' value={this.state.name} onChange={this.onChangeName} />
+          <Input autoFocus={true} invalid={this.state.nameval} placeholder='Name' value={this.state.name} onChange={this.onChangeName} />
         </FormGroup>
         <FormGroup>
           <Label for="exampleEmail">Store Name</Label>
@@ -132,13 +183,8 @@ componentDidMount(){
       <DropdownToggle  onChange={this.onChangeDistrict}>
         Select District  ▼
        </DropdownToggle>
-      <DropdownMenu>
-   {this.state.state==  "Karnataka" &&<div> <DropdownItem onClick={this.onChangeDistrict} value="Mangalore" >Manglaore</DropdownItem>
-      <DropdownItem onClick={this.onChangeDistrict} value="Bangalore" >Banglaore</DropdownItem>
-      <DropdownItem onClick={this.onChangeDistrict} value="Hubli" >Hubli</DropdownItem>
-      <DropdownItem onClick={this.onChangeDistrict} value="Mysore" >Mysore</DropdownItem>
-      <DropdownItem onClick={this.onChangeDistrict} value="Udupi" >Udupi</DropdownItem>
-   </div>}
+      <DropdownMenu style={{height:this.state.state=="Karnataka"?'40vh':'', overflow:'scroll', top:'200px',position:'absolute'}}>
+    {this.state.state=="Karnataka" &&   <CategoryData/> }
         <DropdownItem divider />
         <DropdownItem style= {{background:'dodgerblue', border:'Solid 10px white', color: 'white'}} onClick = {this.enablePlacesInput}>Other</DropdownItem>
       </DropdownMenu>
