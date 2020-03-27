@@ -7,7 +7,7 @@ const path = require('path');
 require('dotenv').config();
 require('./services/passport.js')
 const compression = require('compression')
-const config = require('../WARProject-master/config');
+const config = require('../travelcrest/config');
 
 const env = process.env.NODE_ENV || 'development';
 
