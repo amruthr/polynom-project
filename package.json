@@ -1,5 +1,5 @@
 {
-  "name": "myindiaoffers",
+  "name": "TravelCrest",
   "version": "1.0.0",
   "main": "index.js",
   "engines": {
@@ -8,10 +8,10 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "heroku-postbuild": "cd client && yarn && yarn run build",
     "client": "cd client && yarn start",
-    "server": "nodemon index.js",
+    "server": "node index.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "dependencies": {
