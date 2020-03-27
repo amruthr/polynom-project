@@ -22,33 +22,42 @@ import {
 
 const styles = {
   itemMenu: {
-    padding: '2px',
-    textAlign:'center',
+    padding: '2px 20px',
+    textAlign:'left',
     listStyleType: 'none',
-    color:'#000'
+    color:'#000!important',
+    fontSize:'20',
+    fontFamily:'Montserrat'
   },
   arrowDown: {
     display: 'none',
   },
   navbarBackground: {
-    textAlign:'center',
+    textAlign:'left',
     justifyContent: isMobile?'center':'left',
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff69',
+    backdropFilter:'blur(7px)',
     boxShadow:'0px 2px 10px grey',
-    zIndex: 1
+    zIndex: 1,
+    textDecoration:'none'
   },
   textBanner: {
     display:'block',
-    backgroundImage:'url(/images/logox.png)',
-    height:'100px',
+    backgroundImage:'',
+    fontFamily: 'sen',
+    height:'10px',
     width:'100px',
     backgroundSize: 'cover'
   },
   textNone:{
     display:'block',
-    backgroundImage:'url(/images/logox.png)',
-    height:'50px',
-    width:'50px',
+    backgroundImage:'',
+    fontSize:'10',
+    fontFamily:'Montserrat',
+    width:'250px',
+    fontWeight:'1000',
+    padding:'10px 0px',
+    color:'#000',
     backgroundSize: 'cover'
   },
 }
@@ -113,14 +122,14 @@ class NavbarContainer extends Component {
     const { men, women, children, partyWear, casuals, vastram_specials, } = this.props.categoriesProducts
     const { itemMenu, arrowDown, navbarBackground } = styles
     const {navitems} = this.state
-
+    const x = {catid:"x", catname:"services"}
     const categoriesNavItems = gender =>
     isBrowser ?            
       (<NavItem style={itemMenu} onMouseEnter={()=>this.handleSubMenuEnter(gender)} >
-        <NavLink to={`/category/${gender.catid}`}  className="text-white" onClick={()=>resetKeywords()}>{gender.catname}</NavLink> {arrowStyleSubmenu(subMenuCategorySelected, gender, arrowDown)}
+        <NavLink to={`/category/${gender.catid}`} className="text-black" onClick={()=>resetKeywords()}>{gender.catname}</NavLink> {arrowStyleSubmenu(subMenuCategorySelected, gender, arrowDown)}
       </NavItem>) :
       (<NavItem style={itemMenu}>
-      <NavLink to={`/category/${gender.catid}`}  className="text-white" onClick={()=>{return (resetKeywords(), this.toggle())}}>{gender.catname}</NavLink>
+      <NavLink to={`/category/${gender.catid}`} style={{color:"#000", fontSize:'20'}} onClick={()=>{return (resetKeywords(), this.toggle())}}>{gender.catname}</NavLink>
     </NavItem>)
 
     const cartNavItem = 
@@ -138,7 +147,7 @@ class NavbarContainer extends Component {
         <CheckoutMiniSummaryPreview empty={getCart.length === 0 && true} getCart={getCart}/>
       </div>
       }
-    </Nav>) : <NavItem style={itemMenu}><NavLink to='/cart'  className="text-white" onClick={this.toggle}>cart</NavLink></NavItem>
+    </Nav>) : <NavItem style={itemMenu}><NavLink to='/cart'  onClick={this.toggle}>cart</NavLink></NavItem>
 
     const subMenuHoverBrowser = 
       subMenuOpen && isBrowser && 
@@ -153,14 +162,17 @@ class NavbarContainer extends Component {
     return (
       <div className="sticky-top">
         <Navbar light expand="md" style={navbarBackground}>
-          <Link to="/" style={itemMenu} className="text-white"><div style={isMobile?styles.textNone:styles.textBanner}>      
+          <Link to="/" style={itemMenu} className="text-white">
+            <div style={isMobile?styles.textNone:styles.textBanner}>      
+            TRAVEL CREST
       </div></Link>
-       {/*    <NavbarToggler light onClick={this.toggle} />
-          <Collapse isOpen={isOpen} navbar >
-            {navitems.map(x=>
-          categoriesNavItems(x)
-            )}
-          </Collapse> */}
+           <NavbarToggler light onClick={this.toggle} />
+          <Collapse isOpen={isOpen} navbar style={{fontSize: '24px', paddingBottom:'20px'}} >
+          
+          {categoriesNavItems(x)}
+            
+            {cartNavItem}
+          </Collapse> 
         </Navbar>
         {/* {subMenuHoverBrowser} */}
       </div>

@@ -5,13 +5,15 @@ import AdminFormAddItem from './Admin-form-add-item'
 import AdminHistoryLog from './Admin-history-log'
 import AdminTableOrders from './Admin-table-orders'
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
-
+import {
+  isMobile
+} from "react-device-detect";
 export default class Admin extends Component {
   constructor(props){
     super(props);
     this.state={
       apiList: [],
-      activeTab: '2'
+      activeTab: '3'
     }
   }
 
@@ -38,8 +40,8 @@ export default class Admin extends Component {
 
     return (
       <div style={{display:'flex'}}>
-        <Nav vertical style={{background:'#050505'}} className="col-md-2">
-          <NavItem>
+   { !isMobile &&     <Nav vertical style={{background:'#050505'}} className="col-md-2">
+{/*           <NavItem>
             <NavLink style={styles.tabx} onClick={() => { this.toggle('1'); }}>
               <b>Orders</b>
             </NavLink> 
@@ -48,31 +50,32 @@ export default class Admin extends Component {
             <NavLink style={styles.tabx} onClick={() => { this.toggle('2'); }}>
               <b>Update/delete items</b>
             </NavLink>
-          </NavItem>
+          </NavItem> */}
           <NavItem>
             <NavLink style={styles.tabx} onClick={() => { this.toggle('3'); }}>
               <b>Add new item</b>
             </NavLink>
           </NavItem>
-          <NavItem>
+          {/* <NavItem>
             <NavLink style={styles.tabx} onClick={() => { this.toggle('4'); }}>
               <b>History log</b>
             </NavLink>
           </NavItem>
-        </Nav>
+ */}        </Nav>
+ }
         <TabContent className="col-md-10" style={{height:'-webkit-fill-available'}} activeTab={this.state.activeTab}>
-          <TabPane tabId="1">
+{/*           <TabPane tabId="1">
             <AdminTableOrders stylesTab1={styles.tab1}/>
           </TabPane>
           <TabPane tabId="2">
             <AdminTablesItems stylesTab2={styles.tab2}/> 
-          </TabPane>
+          </TabPane> */}
           <TabPane tabId="3" style={styles.tab3}>
             <AdminFormAddItem />
           </TabPane>
-          <TabPane tabId="4">
+       {/*    <TabPane tabId="4">
             <AdminHistoryLog stylesTab4={styles.tab4} />
-          </TabPane>
+          </TabPane> */}
         </TabContent>
       </div>
     )

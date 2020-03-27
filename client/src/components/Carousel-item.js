@@ -64,8 +64,9 @@ class CarouselItemPage extends Component {
           onExiting={this.onExiting}
           onExited={this.onExited}
           key={index}
+         
         >
-          <img style={{width: '100%', height: '350px'}} src={x} alt={x} />
+          <img style={{width: '100%',borderRadius:'20px 20px 0px 0px',}} src={x} alt={x} />
         </CarouselItem>
       );
     });
@@ -75,11 +76,13 @@ class CarouselItemPage extends Component {
         activeIndex={activeIndex}
         next={this.next}
         previous={this.previous}
+        ride="carousel"
+        interval={5000+(Math.random()*3000)}
       >
         <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
         {slides}
-        <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+       {/*  <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />  */}
       </Carousel>
     );
   }

@@ -8,7 +8,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "heroku-postbuild": "cd client && yarn && yarn run build",
     "client": "cd client && yarn start",
     "server": "nodemon index.js",
@@ -30,6 +30,6 @@
   },
   "devDependencies": {
     "concurrently": "4.0.1",
-    "nodemon": "1.18.4"
+    "nodemon": "^1.18.4"
   }
 }

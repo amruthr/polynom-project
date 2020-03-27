@@ -56,6 +56,7 @@ const styles = {
 const ItemsList = ({
   match, 
   listIsLoading,
+  touchme,
   FilteredSortedList,
   keywordsForFilter,
   oneKeywordForFilter,
@@ -75,9 +76,7 @@ const ItemsList = ({
 
   const { gender } = match.params;
   const listLength = FilteredSortedList.length
-
   const loading_logic = listIsLoading && <LoadingGif />;
-
   const pagination = Math.ceil(listLength/itemsMaxPage)>1 ? 
     (<Paginator  
       maxPages={Math.ceil(listLength/itemsMaxPage)} 
@@ -90,8 +89,8 @@ const ItemsList = ({
 
 
   const itemsListByGender_logic = 
-    
-    <Col md={{ size: 9, order: 1 }}>
+  
+    <Col md={{ size: 9, order: 1 }} style={{padding:'5px'}}>
       {listIsLoading === false && <i>Results: {listLength}</i>}
       {FilteredSortedList.length === 0 && listIsLoading === false && 
       <div style={{ display: 'flex', alignItems: 'center'}}>
@@ -99,10 +98,10 @@ const ItemsList = ({
         <ButtonLinkGenderPage gender='men'/>
         <ButtonLinkGenderPage gender='women'/>
       </div>}
-
       <div style ={{ display: 'flex',flexFlow: 'row wrap',}} >
         {loading_logic} {/* if list is loading show loader */}
         <EachItemInList 
+        touchme = {touchme}
           FilteredSortedList={FilteredSortedList} 
           currentPage={currentPage}
           itemsMaxPage={itemsMaxPage}
@@ -134,14 +133,15 @@ const ItemsList = ({
 
   return (
     <div>
-       <ItemsListBanner 
+       {/* <ItemsListBanner 
         gender={gender} 
         reducerPriceRangeFilter={reducerPriceRangeFilter}
         sortSizeForFilter={sortSizeForFilter}
         keywordsForFilter={keywordsForFilter}
         sortArgsForFilter={sortArgsForFilter}
-      />
+      /> */}
       <Breadcrumbs 
+      sortbutton={true}
         selectedCategory={keywordsForFilter} 
         keywordsForFilter={keywordsForFilter}
         sortArgsForFilter = {sortArgsForFilter}
@@ -151,7 +151,7 @@ const ItemsList = ({
         textColor={'white'}
         marginTop={-34}
         showSortBtn={keywordsForFilter.length > 0}
-        showFilterBtn={isMobile}
+        showFilterBtn={true}
         dispatchSize={dispatchSize}
         sortSizeForFilter={sortSizeForFilter}
         keywordsSelectAction={keywordsSelectAction}

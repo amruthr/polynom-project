@@ -1,8 +1,9 @@
 import React, { Component ,  useState }  from 'react';
-import { Button, Input, Form, FormGroup, Label, Container, UncontrolledButtonDropdown , Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import ReactDOM from 'react-dom';
+import { Button, Input, Form, FormGroup, Label,Col, Container, UncontrolledButtonDropdown , Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import axios from 'axios';
-
-
+import {storage} from '../firebase/index';
+// import {storage} from '@firebase/storage'
 
 
 class AdminFormAddItem extends Component {
@@ -10,20 +11,65 @@ class AdminFormAddItem extends Component {
     super(props);
     this.state = {
       modalEdit: false,
-      title: 'tteeest',
-      color: 'blue, red',
-      size: 'XS, L',
-      qty : '',
-      tags: 'Polos',
-      images: 'https://i.ytimg.com/vi/Bor5lkRyeGo/hqdefault.jpg, https://i.ytimg.com/vi/Bor5lkRyeGo/hqdefault.jpg',
+      title: '',
+      tags: '',
+      images: [],
       description: '',
       price: 0,
       success: false,
-      sizes: ["M", "s"],
+      ndays:1  ,
+      includes:'',
+      doesnotinclude:'',
+
+      highlights:'',
       taginput: true,
-      catoptions:[]
+      catoptions:[],
+      image: null,
+      url: [],
+      progress: 0,
+      daysalert:'',
+      upload:"upload",
+      noofimgs:["1"],
     };
+    this.handleChange = this.handleChange.bind(this);
+      this.handleUpload = this.handleUpload.bind(this);
   }
+
+  handleChange = e => {
+    if (e.target.files[0]) {
+      const image =Array.from(e.target.files);
+      this.setState(() => ({image}));
+      console.log(image)
+    }
+  }
+  handleUpload = (e) => {
+    e.preventDefault();
+      const {image} = this.state;
+      image.map((image,i)=>{
+      const uploadTask = storage.ref(`travelcrest/${image.name}`).put(image);
+      uploadTask.on('state_changed', 
+      (snapshot) => {
+        // progrss function ....
+         const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 1000);
+         this.setState({progress});
+         this.setState({upload:"uploading"});
+      }, 
+      (error) => {
+           // error function ....
+        alert(error);
+      }, 
+    () => {
+        // complete function ....
+        storage.ref('images').child(image.name).getDownloadURL().then(url => {
+            const x = this.state.url
+            x[i] = url
+            this.setState({url:x});
+            this.setState({images: x})
+            this.setState({upload:"uploaded"});
+        })
+    });
+   } ) }
+  //===================img uploader functions^^
 
 componentDidMount(){
   fetch('/api/shopbyprice') 
@@ -46,15 +92,26 @@ componentDidMount(){
     });
   }
 
-  onSubmit = (title, price, color, size,  tags, images, description) => {
+  onSubmit = (
+    title, 
+    price, 
+    highlights,
+    includes, 
+    tags,
+    images,
+    description,
+    ndays,
+     doesnotinclude) => {
     axios.post('/api/add/item', {
       title,
       price,
-      color: (color.slice(0)+'').replace(/\s/g,'').split(','),
-      size: (size.slice(0)+'').replace(/\s/g,'').split(','),      
+      highlights:(highlights.slice(0)+'').replace(/\s/g,'').split(','),
+    includes,
+    doesnotinclude,
+    days:ndays,    
       tags: (tags.slice(0)+'').replace(/\s/g,'').split(','),
       images: (images.slice(0)+'').replace(/\s/g,'').split(','),
-      description: description === undefined?'a great product this is':description, 
+      description: description === undefined?'':description, 
     })
     .then(() => {
       window.location.reload(true)
@@ -66,13 +123,17 @@ componentDidMount(){
 
   onChangeTitle = (e) => this.setState({title: e.target.value})
   onChangePrice = (e) => this.setState({price: e.target.value})
-  onChangeColor = (e) => this.setState({color: [e.target.value]})
-  onChangesize = (e) => this.setState({size: e.target.value})
-  onChangeqty = (e) => this.setState({qty: e.target.value})
+  onChangeHighlights = (e) => this.setState({highlights: [e.target.value]})
+  onChangeIncludes = (e) => this.setState({includes: e.target.value})
+  onChangeDNIncludes = (e) => this.setState({doesnotinclude: e.target.value})
   onChangeTags = (e) => this.setState({tags: [e.target.value]})
-  onChangeImages = (e) => this.setState({images: [e.target.value]})
   onChangeDescription = (e) => this.setState({ description: e.target.value })
   enableTagsInput =(e) => {this.setState({taginput: false})  }
+  onChangeDays = (e) => {
+   e>0? this.setState({ndays:e}) :alert("Cannot set days in negative")
+  }
+
+
   render() {
     const {catoptions} = this.state
     const quantity =()=> {
@@ -83,45 +144,51 @@ componentDidMount(){
         </FormGroup>      
    // })
     }
+
     const CategoryData = ()=>{
          return (
            <div>
           {catoptions.map(x=>
            <DropdownItem onClick={this.onChangeTags} value= {x.valuex} >{x.valuex}</DropdownItem>      
-          )
-        }
+          )}
           </div>
-        )
-      }
-    const { title, price, color, size, qty, tags, images, description } = this.state
- 
+        ) }
+
+    const { title, price, highlights, includes, doesnotinclude, days, ndays, noofimgs, tags, images, description } = this.state
+    const style = {
+      height: '100px',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center'
+    };
     return (
-      <Container style={{paddingTop: '50px', paddingBottom:'50px',background:"white", color:"black",fontFamily:"Roboto"}}>
+      <Container style={{paddingTop: '50px', paddingBottom:'50px',background:"aliceblue", color:"black",fontFamily:"Roboto"}}>
       <h1>Add new item</h1>
-      <Form >
+      <Form style={{fontSize:'12px'}} >
         <FormGroup>
-          <Label for="exampleEmail">Item's name</Label>
-          <Input placeholder='example: cool polo' value={this.state.title} onChange={this.onChangeTitle} />
+          <Label for="exampleEmail">Package name</Label>
+          <Input placeholder='Package Name' value={this.state.title} onChange={this.onChangeTitle} />
         </FormGroup>
         <FormGroup>
           <Label for="exampleEmail">Price</Label>
-          <Input placeholder='example: 43' value={this.state.price} onChange={this.onChangePrice} />
+          <Input placeholder='Price in Rs.' value={this.state.price} onChange={this.onChangePrice} />
         </FormGroup>
         <FormGroup>
-          <Label for="exampleEmail">color available</Label>
-          <Input placeholder='example: color1, color2, color3' value={this.state.color} onChange={this.onChangeColor} />
+          <Label for="exampleEmail">Package Highlights</Label>
+          <Input placeholder='Explain features of this package' value={this.state.highlights} onChange={this.onChangeHighlights} />
         </FormGroup>
         <FormGroup>
-          <Label for="exampleEmail">size available</Label>
-          <Input placeholder='example: XS, L, XL' value={this.state.size} onChange={this.onChangesize} />
+          <Label for="exampleEmail">Package Includes</Label>
+          <Input placeholder='What does this package covers?' value={this.state.includes} onChange={this.onChangeIncludes} />
         </FormGroup>        
             <FormGroup>
-          <Label for="exampleEmail">Quantity</Label>
-          <Input type = "number" placeholder='number of this item in stock'  onChange={this.onChangeqty} />
+          <Label for="exampleEmail">Package does not include</Label>
+          <Input  placeholder='items this packages does not provide...' value={this.state.doesnotinclude}  onChange={this.onChangeDNIncludes} />
           </FormGroup> 
       <FormGroup>
         <Label for="exampleEmail">Category  :</Label>
-     <div className="Container" style={{display:"flex"}}>  <div className="col-md-2"> <UncontrolledButtonDropdown direction="down" onChange={this.onChangeTags}>
+     <div className="" style={{display:"flex"}}>  <div > <UncontrolledButtonDropdown direction="down" onChange={this.onChangeTags}>
       <DropdownToggle  onChange={this.onChangeTags}>
         Choose
       </DropdownToggle>
@@ -132,13 +199,34 @@ componentDidMount(){
         <DropdownItem style= {{background:'dodgerblue', border:'Solid 10px white', color: 'white'}}onClick = {this.enableTagsInput}>new Category</DropdownItem>
       </DropdownMenu>
     </UncontrolledButtonDropdown></div>
-  <div className="col-md-10">  <Input disabled={this.state.taginput} autofocus ={!this.state.taginput} autoFocus ref={(input) => { this.nameInput = input; }} placeholder='or type your own...' value={this.state.tags} onChange={this.onChangeTags} />
+  <div> 
+   <Input style={{display:this.state.taginput?"none":"block"}} disabled={this.state.taginput} autofocus ={!this.state.taginput} autoFocus ref={(input) => { this.nameInput = input; }} placeholder='Enter the new category' value={this.state.tags} onChange={this.onChangeTags} />
   </div></div>
-        </FormGroup>
-        <FormGroup>
-          <Label for="exampleEmail">Images</Label>
-          <Input placeholder='example: http://link1.jpg, http://link2.jpg' value={this.state.images} onChange={this.onChangeImages} />
-        </FormGroup>
+     </FormGroup>            
+        <FormGroup style={{textAlign:'center'}}>
+         <Button style={{margin:'2px 20px'}} onClick={()=>this.onChangeDays(this.state.ndays+1)}>+</Button>
+    <Label for="examplePassword">Number of Days : {this.state.ndays}</Label>
+    <Button style={{margin:'2px 20px'}} onClick={()=>this.onChangeDays(this.state.ndays-1)}>-</Button><small style={{color:'red'}}>{this.state.daysalert}</small>
+         </FormGroup>
+
+         <Label for="exampleEmail">Images</Label>
+         <FormGroup style={{display:'flex', fontSize:'1rem',flexDirection:'column', flexWrap:'wrap', alignItems:'center' }}>
+        
+        <div >      
+      <input type="file" multiple  onChange={this.handleChange}/>
+      </div><div style={{width:'100%',margin:'10px'}} >     
+      <progress value={this.state.progress} max="1000" style={{width:'100%'}}/>
+      </div><div style={{width:'100%', textAlign:'center', margin:'10px 0px'}} >     
+    <button onClick={this.handleUpload } disabled={this.state.upload==="upload"?false:true}>{this.state.upload}</button>
+      </div><div >   
+      {this.state.url.map((src, i)=>
+      <img src={src} key={i} alt={"image "+i} height="60" width="80"/>
+   )} 
+      </div>
+      <Input type="text"  placeholder='' value={this.state.url.map((item)=>" "+item)}  />
+      </FormGroup>
+
+
         <FormGroup>
           <Label for="examplePassword">Description</Label>
           <Input type="textarea" value={this.state.description} onChange={this.onChangeDescription} />
@@ -147,15 +235,18 @@ componentDidMount(){
       <Button onClick={()=>this.onSubmit(
         title, 
         price, 
-        color, 
-        size, 
+        highlights,
+        includes, 
         tags,
         images,
-        description
+        description,
+        ndays,
+         doesnotinclude //9 inputs
         )}>Submit</Button>
       </Container>
     );
   }
 }
+
 
 export default AdminFormAddItem;

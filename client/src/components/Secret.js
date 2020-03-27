@@ -31,7 +31,7 @@ class Secret extends Component {
     const showAdminPanel = this.state.apiAuth ? <Admin /> : <p>Authorization is required, please login here: <Link to="/admin">login</Link></p>
 
     return (
-      <div>
+      <div style={{minHeight:'100vh'}}>
         {showAdminPanel}
       </div>
     )

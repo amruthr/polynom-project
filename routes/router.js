@@ -5,6 +5,7 @@ const router = express.Router();
 const ModelProducts = require('../models/ModelProducts');
 const ModelLog = require('../models/ModelLog');
 const ModelOrders = require('../models/ModelOrders');
+const ModelCategories = require('../models/ModelCategory');
 const ModelCarousel = require('../models/ModelCarouselData');
 
 router.get('/carouselData', (req, res)=>{
@@ -45,6 +46,21 @@ router.get('/productsdata/:id', (req, res)=> {
     .catch(err => next(err))
 })
 
+router.get('/packages/:id', (req, res)=> {
+  const { id } = req.params
+  id===undefined? ModelProducts.find((err, x) => {
+    err ? res.status(500).send(err) :
+    res.status(200).json(x)
+}):
+  ModelProducts.find({tags:{$all:[id]}})
+    .then(x => {
+      if (!x) return res.status(404).end()
+      return res.json(x)
+    })
+    .catch(err => next(err))
+})
+
+
 router.post('/update/item', (req, res, next)=> {
   const { id, title, price, color, size, tags, images, description } = req.body
   ModelProducts.findById(id, (err, model) => {
@@ -70,15 +86,25 @@ router.post('/update/item', (req, res, next)=> {
 })
 
 router.post('/add/item', (req, res, next)=> {
-  const { title, price, description, size, tags, images, color  } = req.body
-  const newItem = new ModelProducts({ 
-    title,
-    price,
-    color,
-    size,
+  const {title,
+    price, 
+    highlights,
+    includes, 
     tags,
     images,
-    description 
+    description,
+    days,
+    doesnotinclude  } = req.body
+  const newItem = new ModelProducts({ 
+    title,
+    price, 
+    highlights,
+    includes, 
+    tags,
+    images,
+    description,
+    days,
+    doesnotinclude
   });
   newItem.save((err, saveditem) => {
     if (err) return console.log(err);
@@ -140,6 +166,21 @@ router.delete('/delete/item/:id', (req, res, next)=> {
 
 router.get('/log', (req, res)=> {
   ModelLog.find((err, x) => {
+      err ? res.status(500).send(err) :
+      res.json(x)
+  })
+})
+
+router.get('/category', (req, res)=> {
+  ModelCategories.find((err, x) => {
+    err ? res.status(500).send(err) :
+    res.json(x).status(200)
+})
+})
+
+
+router.get('/shopbyprice', (req, res)=> {
+  ModelProducts.aggregate([{$group:{_id:{$arrayElemAt:["$tags",0]}, price:{$min:"$price"}, images:{$max:"$images"},subcats: {$addToSet:"$title"}}}],(err, x) => {
       err ? res.status(500).send(err) :
       res.json(x)
   })

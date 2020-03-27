@@ -68,10 +68,10 @@ const Router = () => (
         <Route exact path='/item/:id/:item' component={ItemContainer} />
         <Route exact path='/checkout' component={CheckoutContainer} />
         <Route exact path='/cart' component={CartContainer} />
-        <Route exact path='/productslist/:gender' component={ItemsListContainer} />
-        <Route exact path='/category/:gender' component={ItemsListGenderHomepage} />
-        <Route exact path='/admin' component={AdminContainer} />
-        <Route exact path='/dashboard' component={Secret} /> */}
+        <Route exact path='/productslist/:gender' component={ItemsListContainer} />*/}
+        <Route exact path='/packages/:gender' component={ItemsListGenderHomepage} /> 
+        <Route exact path='/admin' component={AdminContainer} /> 
+        <Route exact path='/dashboard' component={Secret} /> 
         <Route exact path='/register' component={Register} /> 
         <Route exact path='/confirm' component={confirm} /> 
         <Route component={Empty}/>

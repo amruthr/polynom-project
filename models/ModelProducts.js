@@ -5,21 +5,17 @@ const ProductsSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  size: [{type: String}],
-  qty : [{type : String}],
   price: {
     type: Number,
     required: true
   },
   images: [{type: String}],
-  rating: {
-    type: Number, 
-    min: 0,
-    max: 5     
-  },
-  tags: [{type: String}],
-  color: [{type: String}],
-  description: String
+  description: String,
+  highlights:  [{type: String}],
+  includes: String,
+  doesnotinclude: String,
+  tags:[{type:String}],
+  days:Number,
 })
 
 const ModelProducts = mongoose.model('product', ProductsSchema)
