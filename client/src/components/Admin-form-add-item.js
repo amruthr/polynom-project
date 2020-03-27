@@ -60,7 +60,7 @@ class AdminFormAddItem extends Component {
       }, 
     () => {
         // complete function ....
-        storage.ref('images').child(image.name).getDownloadURL().then(url => {
+        storage.ref('travelcrest').child(image.name).getDownloadURL().then(url => {
             const x = this.state.url
             x[i] = url
             this.setState({url:x});
