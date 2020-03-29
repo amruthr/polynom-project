@@ -5,7 +5,7 @@ import {
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Table, Container , Col} from 'reactstrap';
-import Palette from 'react-palette';
+
 import EditCategory from './EditCategory';
 import AdminFormDeleteItem from './Admin-form-delete-item';
 import CarouselItemPage from './Carousel-item';
@@ -39,7 +39,7 @@ export default class Category extends Component {
     return (
       
       <div style={{paddingTop: '0px', paddingBottom:'20px', background:'#fff',minHeight:'100vh'}}>
-     <h2 style={{fontFamily:'roboto',fontWeight:'bolder', margin:'10px'}}>Packages</h2>
+     <h2 id="packages" style={{fontFamily:'roboto',fontWeight:'bolder', margin:'10px'}}>Packages</h2>
      { isAdmin &&  <h1>Update or Delete Categories</h1>}
       <Container style={{display:"flex", flexDirection: 'row',
     flexFlow: 'wrap',
@@ -48,14 +48,14 @@ export default class Category extends Component {
        
         {
           apiList.map((x, index)=>               
-            <div  className={`wow animated ${(index+1)%2?"slideInLeft":"slideInRight"}`} style={{background:'#3e39dc00',
-             backgroundRepeat:'round', width:isMobile?'98%':'31%', 
-             borderRadius:'20px',margin:'10px 10px 50px 10px',minHeight:'300px', boxShadow:'1px 1px 20px lightgray', padding:'0px', 
+            <div  className={`wow animated fadeIn`} style={{background:'#3e39dc00',
+             backgroundRepeat:'round', width:isMobile?'100%':'31%', 
+             borderRadius:'20px', border:'none',margin:'1px 1px 40px 1px',minHeight:'300px', padding:'10px', 
               position:'relative'}} key={x._id}>              
               { <Link to={`/packages/${x._id}`} style={{color:'#000', textDecoration:'none',}}>  
               {}
-              <CarouselItemPage imgsArray={x.images} />         
-              <div style={{ bottom: '65px', position:'absolute', fontSize:'60%', }}>                               
+              <img src ={x.images[0]}  style={{width: '100%',borderRadius:'20px',}} />         
+              <div style={{ bottom: '65px', position:'absolute', fontSize:'80%', }}>                               
         {isAdmin &&  <EditCategory infos={x} /> }
            {x.subcats && x.subcats.map((item, ind)=>
                <div  style={{background:'#f5f5f5', borderRadius:'20px' ,width: 'fit-content', 
@@ -64,18 +64,17 @@ export default class Category extends Component {
               )}     
               </div>          
                </Link>}
-                <p style={{
-                  zIndex: '999',
-                  color: '#000',
-                  width: 'fit-content',
-                  margin: '10px',
-                  fontSize:'1.2rem',
+                <div className="container"  style={{                
+                  fontSize:'1rem',
                   fontFamily:'Montserrat',
                   fontWeight:'bolder',
-                  position:'relative',
-                  bottom:'-0px'
-                   }}>{x._id} packages starting from {x.price} </p>                   
-               </div>                                       
+                  padding:'0px',
+                  margin:'2px 4px',
+                  display: "flex"}}>
+                    <div className="col col-sm-6">{x._id} packages </div> 
+                    <div className="col col-sm-6" style={{textAlign:'right'}} >Rs.{x.price} </div>           
+                 </div>                
+             </div>                                       
              )
           }
         </Container>

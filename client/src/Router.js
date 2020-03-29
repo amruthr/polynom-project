@@ -67,8 +67,8 @@ const Router = () => (
        {/* <Route exact path='/productslist' component={ItemsListContainer} />
         <Route exact path='/item/:id/:item' component={ItemContainer} />
         <Route exact path='/checkout' component={CheckoutContainer} />
-        <Route exact path='/cart' component={CartContainer} />
-        <Route exact path='/productslist/:gender' component={ItemsListContainer} />*/}
+        <Route exact path='/cart' component={CartContainer} />*/}
+        <Route exact path='/package/:gender' component={ItemContainer} />
         <Route exact path='/packages/:gender' component={ItemsListGenderHomepage} /> 
         <Route exact path='/admin' component={AdminContainer} /> 
         <Route exact path='/dashboard' component={Secret} /> 

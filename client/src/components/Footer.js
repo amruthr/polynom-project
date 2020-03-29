@@ -19,10 +19,13 @@ const Footer = () => (
         <Col md='4'>Instagram</Col>
       </Row> */}
            <Row>
-        <Col md='12' style={{textAlign: 'center', paddingTop:'30px'}}>My India Offers © </Col>
+        <Col md='12' style={{textAlign: 'center', paddingTop:'30px'}}>Travel Crest © </Col>
       </Row>
       <Row>
         <Col md='12' style={{textAlign: 'center', paddingTop:'30px'}}>2020 All Rights Reserved</Col>
+      </Row>
+      <Row>
+        <Col md='12' style={{textAlign: 'center', paddingTop:'30px'}}>Developed with ❤ from Aries Tech</Col>
       </Row>
     </Container>
   </div>    

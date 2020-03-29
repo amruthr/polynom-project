@@ -13,14 +13,27 @@ const SBPContainerStyles = {
   width: '100%',
   overflowX:'scroll',
 };
+const spanstyle={
+  border:'solid 1px #cd605b',
+  background:'#cd605b',
+  borderRadius:'25px',
+  margin:'10px 18px',
+  padding:'10px 20px',
+  color:'#fff'
+}
 
 const Homepage = () => (
-  <div style={{background:"#ec2427"}} >
+  <div >
     <Helmet>
       <title>Travel Crest </title>
       <meta name="Travel Crest" content="Book international, pilgrimage, and other packages. Travel and related services, online ticket booking, Railway, Hotel booking, Sight seeing, Bus Booking, wanderlust, hiking , trekking, trips, drving, sight seeing" />
     </Helmet>
     <div>
+      <CarouselHomepage/>
+      <div style={{width:'100%' , textAlign:'center', padding:'30px 0px 70px 0px', background:'#140d2e00'}}>
+        <Link to="#packages"><span style={spanstyle}>packages</span></Link>
+        <Link to="/services"><span style={spanstyle}>Services</span></Link>
+        </div>
    <ShowCategory/>
     </div>
   </div>

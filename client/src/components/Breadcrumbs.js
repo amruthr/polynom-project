@@ -58,7 +58,7 @@ const Breadcrumbs = ({
       alignItems: 'center'
     },
     containerMobileScreen: {
-      height: '100px',
+      height: '80px',
       backgroundColor: backgroundColor,
       marginTop: marginTop,
       color: textColor,
@@ -103,7 +103,7 @@ const Breadcrumbs = ({
   const selectedItem = selectedCategory.length === 1 ? ' '+selectedCategory : selectedCategory.length > 1 ? ' Multiple criterias' : ' Category selection'      
   return (
     <div style={isMobile ? styles.containerMobileScreen : styles.containerPcScreen}>
-      <Container>
+      <Container style={{fontFamily:'Montserrat', fontSize:'12'}}>
         <Row>
           <Col sm={{ size: 'auto'}}>
             <div>

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { isBrowser } from "react-device-detect";
+import { isBrowser, isMobile } from "react-device-detect";
 import Breadcrumbs from "./Breadcrumbs";
 import { Col, Row, Container } from "reactstrap";
 import StarRatings from "react-star-ratings";
@@ -60,15 +60,14 @@ class Item extends Component {
       return <p>Sorry! There was an error loading the items</p>;
     }
 
-    const { size, images, color, tags } = infoItem;
+    const { title ,tags , price , images, includes, highlights  } = infoItem;
+    console.log(infoItem)
     if (
       loading ||
-      size === undefined ||
       images === undefined ||
-      color === undefined ||
       tags === undefined
     ) {
-      return <div style={{ height: "1000px" }} />;
+      return <div style={{ height: "1000px", textAlign:'center' }} >Loading</div>;
     }
     const thumbnailsBrowersView = infoItem.images.map((x, index) => (
       <div key={x} style={{ padding: "5px" }}>
@@ -90,25 +89,28 @@ class Item extends Component {
       />
     );
     const MainImageMobileView = (
+
       <CarouselItemPage imgsArray={infoItem.images} />
     );
 
     return (
-      <div>
-        <Breadcrumbs
-          selectedCategory={infoItem.tags}
-          backgroundColor={"white"}
-          textColor={"black"}
-        />
-        <Container style={{paddingTop:'50px', paddingBottom:'80px'}}>
-          <Row>
+      <div style={{height:'100vh'}}>
+        
+        <Container style={{paddingTop:'0px', paddingBottom:'30px'}}>
+          <Row  style={{height:'100vh'}}>
             <Col md="1">{isBrowser && thumbnailsBrowersView}</Col>
-            <Col md="6">
+            <Col md="6" style={{padding:isMobile?"0px":"auto", position:'fixed',top:'0px',height:'100vh'}}>
               {isBrowser ? MainImageBrowserView : MainImageMobileView}
             </Col>
-            <Col md="5">
-              <h1>{infoItem.title}</h1>
-              <div>{infoItem.price} $</div>
+            
+            <Col md="5" style={{top:'40vh',borderRadius:'20px 20px 0px 0px', background:'aliceblue'}}>
+            <Breadcrumbs
+          selectedCategory={infoItem.tags}
+          backgroundColor={"aliceblue"}
+          textColor={"black"}
+        />
+              <h1 style={{fontFamily:'Montserrat'}}>{infoItem.title}</h1>
+              <div>{infoItem.price} </div>
               <StarRatings
                 rating={infoItem.rating}
                 starDimension="15px"
@@ -118,50 +120,18 @@ class Item extends Component {
                 numberOfStars={5}
                 name="rating"
               />
-              <div style={styles}>
-                <ButtonSizeSelect
-                  style={styles}
-                  sizesArray={infoItem.size}
-                  infoItem={infoItem}
-                  handleSizeSelection={handleSizeSelection}
-                  selectedSize={selectedSize}
-                  validateSizeSelection={validateSizeSelection}
-                />
-                {sizeSelectionMissingRemark.length > 0 ? (
-                  <b style={{ color: "red" }}>*{sizeSelectionMissingRemark}</b>
-                ) : (
-                  ""
-                )}
-              </div>
-              <div style={styles}>
-                <p>
-                  Selected color:{" "}
-                  {selectedColor === "" ? <i>Choose below</i> : selectedColor}
-                </p>
-                <ButtonsColorSelect
-                  colors={infoItem.color}
-                  handleColorSelection={handleColorSelection}
-                  selectedColor={selectedColor}
-                  validateColorSelection={validateColorSelection}
-                />
-                {colorSelectionMissingRemark.length > 0 ? (
-                  <b style={{ color: "red" }}>*{colorSelectionMissingRemark}</b>
-                ) : (
-                  ""
-                )}
-              </div>
+              <p>Highlights</p><ul>
+              {highlights.map((item)=><li>{item}</li>)}
+              </ul>
+              <p>This Package includes</p><ul>
+              {includes.map((item)=><li>{item}</li>)}
+              </ul>
               <div style={styles}>
                 <ButtonAddToCart
                   sizeBtn="lg"
                   addToCart={addToCart}
                   infoItem={infoItem}
-                  selectedSize={selectedSize}
-                  selectedColor={selectedColor}
                   toggleModal={this.toggleModal}
-                  validateSizeSelection={validateSizeSelection}
-                  validateColorSelection={validateColorSelection}
-                  colorSelectionMissingRemark={colorSelectionMissingRemark}
-                  sizeSelectionMissingRemark={sizeSelectionMissingRemark}
                 />
               </div>
               <CheckoutModal
@@ -169,8 +139,6 @@ class Item extends Component {
                 toggleModal={this.toggleModal}
                 infoItem={infoItem}
                 totalItemsSelectorStats={totalItemsSelectorStats}
-                selectedSize={selectedSize}
-                selectedColor={selectedColor}
               />
               <p style={{ paddingTop: "30px" }}>Description:</p>
               <p>{infoItem.description}</p>

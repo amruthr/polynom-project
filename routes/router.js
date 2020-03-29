@@ -16,9 +16,10 @@ router.get('/carouselData', (req, res)=>{
 });
 //------------
 router.post('/carouselData', (req, res, next)=> {
-  const {src, caption  } = req.body
+  const {src, mobilesrc,  caption  } = req.body
   const newItem = new ModelCarousel({ 
     src,
+    mobilesrc,
     caption,
   });
   newItem.save((err, saveditem) => {
@@ -37,7 +38,7 @@ router.get('/productsdata', (req, res)=> {
   })
 })
 
-router.get('/productsdata/:id', (req, res)=> {
+router.get('/package/:id', (req, res)=> {
   ModelProducts.findById(req.params.id)
     .then(x => {
       if (!x) return res.status(404).end()

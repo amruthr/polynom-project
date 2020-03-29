@@ -54,7 +54,6 @@ const styles = {
     backgroundImage:'',
     fontSize:'10',
     fontFamily:'Montserrat',
-    width:'250px',
     fontWeight:'1000',
     padding:'10px 0px',
     color:'#000',

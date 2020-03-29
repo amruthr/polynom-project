@@ -5,6 +5,7 @@ import {
 import {
   Carousel,
   CarouselItem,
+  CarouselIndicators,
   CarouselControl,
   Col,
   Row,
@@ -17,18 +18,20 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    color:'#ffbf00',
-    height:'350px',
+    color:'#dodgerblue',
+background:'#fff',
+width:'100%',
+textDecoration:'none',
+    
     
   },
   fixDown:{
-    color:'white',
+       
         width:'100%',
         textAlign: 'center',
-        alignItems: 'center',
-        top: '-50px',
-        marginLeft:'10px!important',
-        background: '#00000033',
+        alignItems: 'center',        
+        justifyContent : 'center',
+        marginLeft:'10px!important',      
         
   }
 }
@@ -37,7 +40,7 @@ const styles = {
 class CarouselHomepage extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 0 ,
+    this.state = { activeIndex: 2,
       items: [],
     } 
    };
@@ -52,8 +55,7 @@ class CarouselHomepage extends Component {
           items: data.map(item=>({
             caption: item.caption,
             src: item.src,
-            altText: 'Slide 1',
-     caption: 'Slide 1',
+            mobilesrc : item.mobilesrc,
     title: item.caption,
     subtitle: 'Check our nice collection',
     btn: {
@@ -100,21 +102,11 @@ class CarouselHomepage extends Component {
           onExiting={this.onExiting}
           onExited={this.onExited}
           key={x.src}
-          link={x.btn.link}
-        > <Link to={x.btn.link}>
-          <Row  style={{backgroundColor: '#050505', height:'350px'}}>
-            <Col md="6">
-              <img src={x.src} alt={x.altText} style={{width: '100%', height: 'fitContent', filter: 'brightness(1)'}}/>
-            </Col>
-            <Col md="6" style={styles.sliderContent , isMobile?styles.fixDown:styles.sliderContent }>
-              <h2>{x.title}</h2>
-              <p>{x.subtitle}</p>
-              <ButtonInternalLink 
-                content={x.btn.content}
-                link={x.btn.link}
-                lightOrDark='dark'
-                sizeBtn='lg'
-              />
+          link={x.caption}
+        > <Link to={x.caption}>
+          <Row  style={isMobile?{backgroundColor: '#fff',height:'80vh'}:{backgroundColor: '#050505', height:'750px'}}>
+            <Col md={isMobile?"6":"12"}> 
+            <img src={isMobile?x.mobilesrc:x.src} alt={x.altText} style={{ width:'100%', height:'80vh', filter: 'brightness(1)'}}/>
             </Col>
           </Row>
           </Link> </CarouselItem>
@@ -124,13 +116,16 @@ class CarouselHomepage extends Component {
     return (
       
       <Carousel
-      autoPlay = {true}
+      ride="carousel"
+      style={{height:'90vh'}}
         activeIndex={activeIndex}
         next={this.next}
         previous={this.previous}
         keyboard ={true}
+        autoPlay={false}
       >
         {slides}
+        <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
         <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
         <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
       </Carousel>      

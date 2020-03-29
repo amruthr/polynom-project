@@ -4,6 +4,7 @@ import AdminTablesItems from './Admin-table-items'
 import AdminFormAddItem from './Admin-form-add-item'
 import AdminHistoryLog from './Admin-history-log'
 import AdminTableOrders from './Admin-table-orders'
+import AdminPromos from './Admin-promos'
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import {
   isMobile
@@ -56,12 +57,12 @@ export default class Admin extends Component {
               <b>Add new item</b>
             </NavLink>
           </NavItem>
-          {/* <NavItem>
+          <NavItem>
             <NavLink style={styles.tabx} onClick={() => { this.toggle('4'); }}>
-              <b>History log</b>
+              <b>Promos and Trending</b>
             </NavLink>
           </NavItem>
- */}        </Nav>
+      </Nav>
  }
         <TabContent className="col-md-10" style={{height:'-webkit-fill-available'}} activeTab={this.state.activeTab}>
 {/*           <TabPane tabId="1">
@@ -73,9 +74,9 @@ export default class Admin extends Component {
           <TabPane tabId="3" style={styles.tab3}>
             <AdminFormAddItem />
           </TabPane>
-       {/*    <TabPane tabId="4">
-            <AdminHistoryLog stylesTab4={styles.tab4} />
-          </TabPane> */}
+          <TabPane tabId="4">
+            <AdminPromos stylesTab4={styles.tab4} />
+          </TabPane> 
         </TabContent>
       </div>
     )

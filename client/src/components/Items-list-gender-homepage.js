@@ -60,7 +60,7 @@ class  shopByPrice extends Component {
     padding: '0px',
     color: "#000",
     margin: '20px 8px',
-    boxShadow:'1px 0px 20px lightgray',}}><Link to={`/productslist/${x.name}`}>
+    boxShadow:'1px 0px 20px lightgray',}}><Link to={`/package/${x.id}`}>
       <img  style = {{position:'relative', 
       width:'100%',height:'auto'
       ,padding:'0px' }} src={x.img[0]}/>
@@ -70,7 +70,7 @@ class  shopByPrice extends Component {
     })
     
     return(
-     <div>{this.state.categories.length>0? <h1>{this.props.match.params.gender} Packages</h1>:<h1>Uh oh! Packages not Found</h1>}
+     <div>{this.state.categories.length>0? <h2 style={{margin:'20px', fontFamily:'Montserrat'}}>{this.props.match.params.gender} Packages</h2>:<h2 style={{margin:'20px', fontFamily:'Montserrat'}}>Uh oh! Packages not Found</h2>}
      {this.state.categories.length>0? <div style = {{display:'flex', flexFlow:'row wrap', width:isMobile?'100%':categories.length*24+'%', background:'#fff', }}>{cards}</div>:''
   }</div>
     )

@@ -12,8 +12,8 @@ const ProductsSchema = mongoose.Schema({
   images: [{type: String}],
   description: String,
   highlights:  [{type: String}],
-  includes: String,
-  doesnotinclude: String,
+  includes: [{type: String}],
+  doesnotinclude:  [{type: String}],
   tags:[{type:String}],
   days:Number,
 })

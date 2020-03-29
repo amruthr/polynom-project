@@ -17,7 +17,7 @@ class ItemContainer extends Component {
     }
   }
 
-  componentDidMount = () => this.props.fetchItemApi(`/api/productsdata/${this.props.match.params.id}`);
+  componentDidMount = () => this.props.fetchItemApi(`/api/package/${this.props.match.params.gender}`);
 
   handleSizeSelection = selectedSize => this.setState({ selectedSize });
 
