@@ -103,15 +103,15 @@ class Item extends Component {
               {isBrowser ? MainImageBrowserView : MainImageMobileView}
             </Col>
             
-            <Col md="5" style={{top:'40vh',borderRadius:'20px 20px 0px 0px', background:'aliceblue'}}>
+            <Col md="5" style={{top:'20vh',borderRadius:'20px 20px 0px 0px', background:'aliceblue', height:'70vh', overflow:'scroll'}}>
             <Breadcrumbs
           selectedCategory={infoItem.tags}
           backgroundColor={"aliceblue"}
           textColor={"black"}
         />
-              <h1 style={{fontFamily:'Montserrat'}}>{infoItem.title}</h1>
-              <div>{infoItem.price} </div>
-              <StarRatings
+              <h2 style={{fontFamily:'Montserrat'}}>{infoItem.title}</h2>
+              <h3 ClassName="text-bold" style={{margin:'10px, 0px', fontSize:'24px',  }}><b> Rs.{infoItem.price}</b> </h3>
+             {infoItem.rating>0 && <StarRatings
                 rating={infoItem.rating}
                 starDimension="15px"
                 starSpacing="1px"
@@ -119,7 +119,7 @@ class Item extends Component {
                 // changeRating={this.changeRating}
                 numberOfStars={5}
                 name="rating"
-              />
+              />}
               <p>Highlights</p><ul>
               {highlights.map((item)=><li>{item}</li>)}
               </ul>

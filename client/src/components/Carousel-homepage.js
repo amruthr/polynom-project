@@ -40,7 +40,7 @@ textDecoration:'none',
 class CarouselHomepage extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 2,
+    this.state = { activeIndex: 0,
       items: [],
     } 
    };
@@ -98,7 +98,7 @@ class CarouselHomepage extends Component {
     const {items} = this.state;
     const slides = items.map(x => {
       return (
-       <CarouselItem 
+       <CarouselItem className="wow animated rollIn "
           onExiting={this.onExiting}
           onExited={this.onExited}
           key={x.src}
@@ -126,8 +126,8 @@ class CarouselHomepage extends Component {
       >
         {slides}
         <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
-        <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+        {/* <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} /> */}
       </Carousel>      
     );
   }

@@ -60,10 +60,10 @@ class  shopByPrice extends Component {
     padding: '0px',
     color: "#000",
     margin: '20px 8px',
-    boxShadow:'1px 0px 20px lightgray',}}><Link to={`/package/${x.id}`}>
+    boxShadow:'0px 0px 20px lightgrey',}}><Link to={`/package/${x.id}`}>
       <img  style = {{position:'relative', 
-      width:'100%',height:'auto'
-      ,padding:'0px' }} src={x.img[0]}/>
+      width:'100%',height:'auto', borderRadius:'10px 10px 0px 0px',
+      padding:'0px' }} src={x.img[0]}/>
        </Link>
   <p className="text-uppercase container">{x.name} - ₹{x.price}</p></div>
     )

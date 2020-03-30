@@ -22,7 +22,16 @@ import {
 
 const styles = {
   itemMenu: {
+    margin:'20px 10px',
     padding: '2px 20px',
+    textAlign:'left',
+    listStyleType: 'none',
+    color:'#000!important',
+    fontSize:'20',
+    fontFamily:'Montserrat'
+  },
+  itemnav: {
+    padding: '1px 10px',
     textAlign:'left',
     listStyleType: 'none',
     color:'#000!important',
@@ -34,7 +43,7 @@ const styles = {
   },
   navbarBackground: {
     textAlign:'left',
-    justifyContent: isMobile?'center':'left',
+    justifyContent: isMobile?'':'left',
     backgroundColor: '#ffffff69',
     backdropFilter:'blur(7px)',
     boxShadow:'0px 2px 10px grey',
@@ -119,7 +128,7 @@ class NavbarContainer extends Component {
     const { sendOneKeyword, getCart, resetKeywords, totalItemsSelectorStats } = this.props
     const { isOpen, subMenuCategorySelected, subMenuOpen, openCartPreview } = this.state
     const { men, women, children, partyWear, casuals, vastram_specials, } = this.props.categoriesProducts
-    const { itemMenu, arrowDown, navbarBackground } = styles
+    const { itemMenu, itemnav, arrowDown, navbarBackground } = styles
     const {navitems} = this.state
     const x = {catid:"x", catname:"services"}
     const categoriesNavItems = gender =>
@@ -161,11 +170,11 @@ class NavbarContainer extends Component {
     return (
       <div className="sticky-top">
         <Navbar light expand="md" style={navbarBackground}>
-          <Link to="/" style={itemMenu} className="text-white">
+          <Link to="/" style={itemnav} className="text-white">
             <div style={isMobile?styles.textNone:styles.textBanner}>      
             TRAVEL CREST
       </div></Link>
-           <NavbarToggler light onClick={this.toggle} />
+           <NavbarToggler className={{}} style={{outline:'none', border:'none', color:'#000'}} light onClick={this.toggle} />
           <Collapse isOpen={isOpen} navbar style={{fontSize: '24px', paddingBottom:'20px'}} >
           
           {categoriesNavItems(x)}

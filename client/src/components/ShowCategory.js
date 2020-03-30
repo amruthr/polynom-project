@@ -44,8 +44,7 @@ export default class Category extends Component {
       <Container style={{display:"flex", flexDirection: 'row',
     flexFlow: 'wrap',
     alignItems:'center', padding:'0px', 
-      position:'relative',  width:'100%', marginBottom:'10vh',}}>
-       
+      position:'relative',  width:'100%', marginBottom:'10vh',}}> 
         {
           apiList.map((x, index)=>               
             <div  className={`wow animated fadeIn`} style={{background:'#3e39dc00',
@@ -55,24 +54,24 @@ export default class Category extends Component {
               { <Link to={`/packages/${x._id}`} style={{color:'#000', textDecoration:'none',}}>  
               {}
               <img src ={x.images[0]}  style={{width: '100%',borderRadius:'20px',}} />         
-              <div style={{ bottom: '65px', position:'absolute', fontSize:'80%', }}>                               
+              <div style={{ top: '30px', position:'absolute', fontSize:'80%', }}>                               
         {isAdmin &&  <EditCategory infos={x} /> }
            {x.subcats && x.subcats.map((item, ind)=>
                <div  style={{background:'#f5f5f5', borderRadius:'20px' ,width: 'fit-content', 
-               padding: '3px 10px',margin :'5px', border:'solid 0.5px lightgrey', 
+               padding: '3px 10px',margin :'15px', border:'solid 0.5px lightgrey', 
                position:'relative',float:'left', height:'max-content',}}> {item}</div>
               )}     
               </div>          
                </Link>}
                 <div className="container"  style={{                
-                  fontSize:'1rem',
+                  fontSize:'1.2rem',
                   fontFamily:'Montserrat',
                   fontWeight:'bolder',
                   padding:'0px',
-                  margin:'2px 4px',
+                  margin:'10px 4px',
                   display: "flex"}}>
                     <div className="col col-sm-6">{x._id} packages </div> 
-                    <div className="col col-sm-6" style={{textAlign:'right'}} >Rs.{x.price} </div>           
+                    <div className="col col-sm-6" style={{textAlign:'right',fontSize:'1rem',}}><small>starting at </small>Rs.{x.price} </div>           
                  </div>                
              </div>                                       
              )

@@ -99,7 +99,7 @@ const Breadcrumbs = ({
         />
       </Col>
 
-  const genderLink = gender && <Fragment><Link style={styles.linkColor} to={`/category/${gender}`}>{` ${gender && gender.charAt(0).toUpperCase() + gender.substr(1)}'s Apparels`}</Link> ></Fragment>; 
+  const genderLink = gender && <Fragment><Link style={styles.linkColor} to={`/category/${gender}`}>{` ${gender && gender.charAt(0).toUpperCase() + gender.substr(1)}`}</Link> ></Fragment>; 
   const selectedItem = selectedCategory.length === 1 ? ' '+selectedCategory : selectedCategory.length > 1 ? ' Multiple criterias' : ' Category selection'      
   return (
     <div style={isMobile ? styles.containerMobileScreen : styles.containerPcScreen}>
@@ -108,8 +108,8 @@ const Breadcrumbs = ({
           <Col sm={{ size: 'auto'}}>
             <div>
               <Link style={styles.linkColor} to="/">Home </Link> >
-              {genderLink}
-              <span>{selectedItem}</span>
+           {/*    {genderLink} */}
+           <Link style={styles.linkColor} to={"/packages/"+selectedCategory}  ><span>{selectedItem}</span></Link>
             </div>
           </Col>
             { sortBtn }

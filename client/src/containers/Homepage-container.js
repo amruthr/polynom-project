@@ -30,7 +30,7 @@ const Homepage = () => (
     </Helmet>
     <div>
       <CarouselHomepage/>
-      <div style={{width:'100%' , textAlign:'center', padding:'30px 0px 70px 0px', background:'#140d2e00'}}>
+      <div className="animated wow bounce" style={{width:'100%' , textAlign:'center', padding:'30px 0px 70px 0px', background:'#140d2e00'}}>
         <Link to="#packages"><span style={spanstyle}>packages</span></Link>
         <Link to="/services"><span style={spanstyle}>Services</span></Link>
         </div>
