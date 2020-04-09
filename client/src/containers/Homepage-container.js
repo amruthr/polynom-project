@@ -14,12 +14,15 @@ const SBPContainerStyles = {
   overflowX:'scroll',
 };
 const spanstyle={
-  border:'solid 1px #cd605b',
-  background:'#cd605b',
+  border:'solid 1px #376db5',
+  background:'#376db5',
   borderRadius:'25px',
   margin:'10px 18px',
-  padding:'10px 20px',
-  color:'#fff'
+  height:'60px', width:'60px',
+  padding:'6px 16px',
+  lineHeight:'1.5',
+  color:'#fff',
+  fontSize:'30px'
 }
 
 const Homepage = () => (
@@ -30,9 +33,11 @@ const Homepage = () => (
     </Helmet>
     <div>
       <CarouselHomepage/>
-      <div className="animated wow bounce" style={{width:'100%' , textAlign:'center', padding:'30px 0px 70px 0px', background:'#140d2e00'}}>
-        <Link to="#packages"><span style={spanstyle}>packages</span></Link>
-        <Link to="/services"><span style={spanstyle}>Services</span></Link>
+      <div className="animated wow bounce" style={{width:'100%' , textAlign:'center', padding:'30px 0px 30px 0px', background:'#140d2e00', display:'flex', flexFlow:'row wrap'}}>
+        <Link to="#packages"><div style={spanstyle} className="fa fa-building" ></div></Link>
+        <Link to="/services"><div style={spanstyle} className="fa fa-plane"></div></Link>
+        <Link to="/services"><div style={spanstyle} className="fa fa-hotel"></div></Link>
+        <Link to="/services"><div style={spanstyle} className="fa fa-instagram"></div></Link>
         </div>
    <ShowCategory/>
     </div>

@@ -23,6 +23,7 @@ env === 'development' && app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use('/api', require('./routes/router'))
 app.use('/mail', require('./routes/mailRouter'))
+app.use('/fcm', require('./routes/fcm'))
 env !== 'development' && app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });

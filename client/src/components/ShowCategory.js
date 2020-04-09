@@ -5,10 +5,10 @@ import {
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Table, Container , Col} from 'reactstrap';
-
 import EditCategory from './EditCategory';
 import AdminFormDeleteItem from './Admin-form-delete-item';
 import CarouselItemPage from './Carousel-item';
+import { messaging } from '../firebase'
 export default class Category extends Component {
   constructor(props){
     super(props);
@@ -16,7 +16,7 @@ export default class Category extends Component {
       apiList: []
     }
   }
-
+  
   async componentDidMount() {
     try {
       const response = await axios.get('/api/shopbyprice')
@@ -25,6 +25,28 @@ export default class Category extends Component {
     } catch (error) {
       console.log(error);
     }
+
+    messaging.requestPermission()
+    .then(async function() {
+      const token = await messaging.getToken().then((currentToken) => {
+        if (currentToken) {
+         axios.post(`fcm/addtopic`, {id: currentToken});  
+        } else {
+          // Show permission request.
+          console.log('No Instance ID token available. Request permission to generate one.');
+          // Show permission UI.      
+        }
+      }).catch((err) => {
+        console.log('An error occurred while retrieving token. ', err);
+      });
+      ;    
+    })
+    .catch(function(err) {
+      console.log("Unable to get permission to notify.", err);
+    });
+  navigator.serviceWorker.addEventListener("message", (message) => console.log(message)); 
+  messaging.onMessage((payload) => alert('Message received. ', payload));
+  
   }
 
   render() {
@@ -39,7 +61,7 @@ export default class Category extends Component {
     return (
       
       <div style={{paddingTop: '0px', paddingBottom:'20px', background:'#fff',minHeight:'100vh'}}>
-     <h2 id="packages" style={{fontFamily:'roboto',fontWeight:'bolder', margin:'10px'}}>Packages</h2>
+     <h2 id="packages" style={{fontFamily:'roboto',fontWeight:'bolder', margin:'10px', color:'#000'}}>Packages</h2>
      { isAdmin &&  <h1>Update or Delete Categories</h1>}
       <Container style={{display:"flex", flexDirection: 'row',
     flexFlow: 'wrap',

@@ -105,6 +105,7 @@ router.post('/add/item', (req, res, next)=> {
     images,
     description,
     days,
+    nights,
     doesnotinclude
   });
   newItem.save((err, saveditem) => {

@@ -96,6 +96,7 @@ componentDidMount(){
     price, 
     highlights,
     includes, 
+    nights,
     tags,
     images,
     description,
@@ -108,6 +109,7 @@ componentDidMount(){
     includes:(includes.slice(0)+'').replace(/\s/g,'').split(','),
     doesnotinclude: (doesnotinclude.slice(0)+'').replace(/\s/g,'').split(','),
     days:ndays,    
+    nights,
       tags: (tags.slice(0)+'').replace(/\s/g,'').split(','),
       images: (images.slice(0)+'').replace(/\s/g,'').split(','),
       description: description === undefined?'':description, 
@@ -131,7 +133,9 @@ componentDidMount(){
   onChangeDays = (e) => {
    e>0? this.setState({ndays:e}) :alert("Cannot set days in negative")
   }
-
+  onChangeNights = (e) => {
+    e>0? this.setState({nights:e}) :alert("Cannot set nights in negative")
+   }
 
   render() {
     const {catoptions} = this.state
@@ -153,7 +157,7 @@ componentDidMount(){
           </div>
         ) }
 
-    const { title, price, highlights, includes, doesnotinclude, days, ndays, noofimgs, tags, images, description } = this.state
+    const { title, price, highlights, nights, includes, doesnotinclude, days, ndays, noofimgs, tags, images, description } = this.state
     const style = {
       height: '100px',
       display: 'flex',
@@ -203,11 +207,16 @@ componentDidMount(){
   </div></div>
      </FormGroup>            
         <FormGroup style={{textAlign:'center'}}>
-         <Button style={{margin:'2px 20px'}} onClick={()=>this.onChangeDays(this.state.ndays+1)}>+</Button>
+        <Button style={{margin:'2px 20px'}} onClick={()=>this.onChangeDays(this.state.ndays-1)}>-</Button>      
     <Label for="examplePassword">Number of Days : {this.state.ndays}</Label>
-    <Button style={{margin:'2px 20px'}} onClick={()=>this.onChangeDays(this.state.ndays-1)}>-</Button><small style={{color:'red'}}>{this.state.daysalert}</small>
+    <Button style={{margin:'2px 20px'}} onClick={()=>this.onChangeDays(this.state.ndays+1)}>+</Button>
+    <small style={{color:'red'}}>{this.state.daysalert}</small>
          </FormGroup>
-
+         <FormGroup style={{textAlign:'center'}}>
+        <Button style={{margin:'2px 20px'}} onClick={()=>this.onChangeNights(this.state.nights-1)}>-</Button>      
+    <Label for="examplePassword">Number of Nights : {this.state.nights}</Label>
+    <Button style={{margin:'2px 20px'}} onClick={()=>this.onChangeNights(this.state.nights+1)}>+</Button> 
+         </FormGroup>
          <Label for="exampleEmail">Images</Label>
          <FormGroup style={{display:'flex', fontSize:'1rem',flexDirection:'column', flexWrap:'wrap', alignItems:'center' }}>
         
@@ -234,6 +243,7 @@ componentDidMount(){
       <Button onClick={()=>this.onSubmit(
         title, 
         price, 
+        nights,
         highlights,
         includes, 
         tags,

@@ -2,12 +2,13 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Empty from './components/Empty';
 import Loadable from 'react-loadable';
+import LoadingGif from './components/Loading-gif'
 import NavbarContainer from './containers/Navbar-container';
 import Footer from './components/Footer';
 import './style/transition.css';
 
 
-const Loading = () => <div style={{height: '1000px'}}></div>;
+const Loading = () => <div style={{height: '1000px', }}><LoadingGif/></div>;
 
 const ItemContainer = Loadable({
   loader: () => import('./containers/Item-container'),

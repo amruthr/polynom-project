@@ -99,7 +99,7 @@ class Item extends Component {
         <Container style={{paddingTop:'0px', paddingBottom:'30px'}}>
           <Row  style={{height:'100vh'}}>
             <Col md="1">{isBrowser && thumbnailsBrowersView}</Col>
-            <Col md="6" style={{padding:isMobile?"0px":"auto", position:'fixed',top:'0px',height:'100vh'}}>
+            <Col md="6" style={{padding:isMobile?"0px":"auto", position:'fixed',top:'8.8vh',height:'100vh'}}>
               {isBrowser ? MainImageBrowserView : MainImageMobileView}
             </Col>
             

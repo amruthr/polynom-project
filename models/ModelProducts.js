@@ -16,6 +16,7 @@ const ProductsSchema = mongoose.Schema({
   doesnotinclude:  [{type: String}],
   tags:[{type:String}],
   days:Number,
+  nights: Number
 })
 
 const ModelProducts = mongoose.model('product', ProductsSchema)

@@ -98,7 +98,7 @@ class CarouselHomepage extends Component {
     const {items} = this.state;
     const slides = items.map(x => {
       return (
-       <CarouselItem className="wow animated rollIn "
+       <CarouselItem 
           onExiting={this.onExiting}
           onExited={this.onExited}
           key={x.src}

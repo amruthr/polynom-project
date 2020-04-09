@@ -3,7 +3,7 @@ import axios from 'axios';
 import AdminTablesItems from './Admin-table-items'
 import AdminFormAddItem from './Admin-form-add-item'
 import AdminHistoryLog from './Admin-history-log'
-import AdminTableOrders from './Admin-table-orders'
+import AdminNotification from './Admin-notification'
 import AdminPromos from './Admin-promos'
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import {
@@ -62,6 +62,11 @@ export default class Admin extends Component {
               <b>Promos and Trending</b>
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink style={styles.tabx} onClick={() => { this.toggle('5'); }}>
+              <b>Marketing & Notification</b>
+            </NavLink>
+          </NavItem>
       </Nav>
  }
         <TabContent className="col-md-10" style={{height:'-webkit-fill-available'}} activeTab={this.state.activeTab}>
@@ -76,6 +81,9 @@ export default class Admin extends Component {
           </TabPane>
           <TabPane tabId="4">
             <AdminPromos stylesTab4={styles.tab4} />
+          </TabPane> 
+          <TabPane tabId="5">
+            <AdminNotification stylesTab4={styles.tab4} />
           </TabPane> 
         </TabContent>
       </div>

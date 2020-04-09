@@ -23,7 +23,7 @@ import {
 const styles = {
   itemMenu: {
     margin:'20px 10px',
-    padding: '2px 20px',
+    padding: '2px 2px',
     textAlign:'left',
     listStyleType: 'none',
     color:'#000!important',
@@ -31,7 +31,8 @@ const styles = {
     fontFamily:'Montserrat'
   },
   itemnav: {
-    padding: '1px 10px',
+    padding: '0px',
+    width:'30%',
     textAlign:'left',
     listStyleType: 'none',
     color:'#000!important',
@@ -42,11 +43,12 @@ const styles = {
     display: 'none',
   },
   navbarBackground: {
+    height:isMobile?'':'67px',
     textAlign:'left',
     justifyContent: isMobile?'':'left',
-    backgroundColor: '#ffffff69',
-    backdropFilter:'blur(7px)',
-    boxShadow:'0px 2px 10px grey',
+    backgroundColor: '#fff',
+    borderBottom:'solid 3px #376db5',
+    boxShadow:'0px 3px 0px #a7af40',
     zIndex: 1,
     textDecoration:'none'
   },
@@ -54,17 +56,15 @@ const styles = {
     display:'block',
     backgroundImage:'',
     fontFamily: 'sen',
-    height:'10px',
     width:'100px',
     backgroundSize: 'cover'
   },
   textNone:{
-    display:'block',
-    backgroundImage:'',
+    display:'block',    
     fontSize:'10',
     fontFamily:'Montserrat',
     fontWeight:'1000',
-    padding:'10px 0px',
+    padding:'0px 0px',
     color:'#000',
     backgroundSize: 'cover'
   },
@@ -143,8 +143,10 @@ class NavbarContainer extends Component {
     const cartNavItem = 
     isBrowser ?  
       (<Nav className="ml-auto" navbar style={{cursor: 'pointer'}}>
-      <NavItem>
-        <div onClick={()=>this.setState(totalItemsSelectorStats==0?{ openCartPreview: openCartPreview }:{ openCartPreview:!openCartPreview })} className="glyphicon glyphicon-shopping-cart">. 
+      <NavItem className="fa fa-shopping-basket" style={itemMenu}>
+        <div className="fa fa-shopping-basket" style={itemMenu} 
+        onClick={()=>this.setState(totalItemsSelectorStats==0?{ openCartPreview: openCartPreview }:{ openCartPreview:!openCartPreview })}
+         >
           <Badge color="danger" pill style = {totalItemsSelectorStats==0?{display: 'none'}:{display: 'block'}}>
             {totalItemsSelectorStats}
           </Badge>
@@ -172,15 +174,15 @@ class NavbarContainer extends Component {
         <Navbar light expand="md" style={navbarBackground}>
           <Link to="/" style={itemnav} className="text-white">
             <div style={isMobile?styles.textNone:styles.textBanner}>      
-            TRAVEL CREST
+            <img  style={{width:'100%'}} src="/images/tc.jpeg"></img>
       </div></Link>
-           <NavbarToggler className={{}} style={{outline:'none', border:'none', color:'#000'}} light onClick={this.toggle} />
+           <NavbarToggler style={{outline:'none', border:'none', color:'#000'}}  onClick={this.toggle} />
           <Collapse isOpen={isOpen} navbar style={{fontSize: '24px', paddingBottom:'20px'}} >
           
           {categoriesNavItems(x)}
             
             {cartNavItem}
-          </Collapse> 
+          </Collapse>
         </Navbar>
         {/* {subMenuHoverBrowser} */}
       </div>

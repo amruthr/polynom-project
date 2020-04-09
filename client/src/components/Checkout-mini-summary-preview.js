@@ -34,7 +34,7 @@ const CheckoutMiniSummaryPreview = ({
       {
         getCart.map(x=> 
           <Row key={x._id}>
-            <Col xs='9'><p style={styles.fontSize}>x{x.quantity} {x.title} {x.price}$ size: {x.selectedSize} color: {x.selectedColor}</p></Col>
+            <Col xs='9'><p style={styles.fontSize}>x{x.quantity} {x.title} {x.price}{/* $ size: {x.selectedSize} color: {x.selectedColor} */}</p></Col>
             <Col xs='3'><img style={{width: '20px'}} src={x.images[0]} alt="" /></Col>
           </Row>
   
