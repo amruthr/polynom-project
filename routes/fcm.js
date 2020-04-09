@@ -5,7 +5,7 @@ var admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
 const config = require('../config');
 const env = process.env.NODE_ENV || 'development';
-var serviceAccount = env=='development'?config.service_account:process.env.serviceAccount
+var serviceAccount = config.service_account
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
