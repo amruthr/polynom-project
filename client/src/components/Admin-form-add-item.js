@@ -1,6 +1,6 @@
 import React, { Component ,  useState }  from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Input, Form, FormGroup, Label,Col, Container, UncontrolledButtonDropdown , Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Button, Input, Form, FormGroup, Label,Col, Container, UncontrolledButtonDropdown , Dropdown, DropdownToggle, DropdownMenu, DropdownItem , Progress} from 'reactstrap';
 import axios from 'axios';
 import {storage} from '../firebase/index';
 // import {storage} from '@firebase/storage'
@@ -18,9 +18,10 @@ class AdminFormAddItem extends Component {
       price: 0,
       success: false,
       ndays:1  ,
+      nights: 1,
       includes:[],
       doesnotinclude:[],
-      highlights:'',
+      highlights:[],
       taginput: true,
       catoptions:[],
       image: null,
@@ -45,7 +46,7 @@ class AdminFormAddItem extends Component {
     e.preventDefault();
       const {image} = this.state;
       image.map((image,i)=>{
-      const uploadTask = storage.ref(`travelcrest/${image.name}`).put(image);
+      const uploadTask = storage.ref(`tc/${image.name}`).put(image);
       uploadTask.on('state_changed', 
       (snapshot) => {
         // progrss function ....
@@ -55,11 +56,11 @@ class AdminFormAddItem extends Component {
       }, 
       (error) => {
            // error function ....
-        alert(error);
+       console.log(error);
       }, 
     () => {
         // complete function ....
-        storage.ref('travelcrest').child(image.name).getDownloadURL().then(url => {
+        storage.ref('tc').child(image.name).getDownloadURL().then(url => {
             const x = this.state.url
             x[i] = url
             this.setState({url:x});
@@ -105,7 +106,7 @@ componentDidMount(){
     axios.post('/api/add/item', {
       title,
       price,
-      highlights:(highlights.slice(0)+'').replace(/\s/g,'').split(','),
+      highlights:(highlights.split(',')),
     includes:(includes.slice(0)+'').replace(/\s/g,'').split(','),
     doesnotinclude: (doesnotinclude.slice(0)+'').replace(/\s/g,'').split(','),
     days:ndays,    
@@ -124,7 +125,7 @@ componentDidMount(){
 
   onChangeTitle = (e) => this.setState({title: e.target.value})
   onChangePrice = (e) => this.setState({price: e.target.value})
-  onChangeHighlights = (e) => this.setState({highlights: [e.target.value]})
+  onChangeHighlights = (e) => this.setState({highlights: e.target.value})
   onChangeIncludes = (e) => this.setState({includes: e.target.value})
   onChangeDNIncludes = (e) => this.setState({doesnotinclude: e.target.value})
   onChangeTags = (e) => this.setState({tags: [e.target.value]})
@@ -223,7 +224,7 @@ componentDidMount(){
         <div >      
       <input type="file" multiple  onChange={this.handleChange}/>
       </div><div style={{width:'100%',margin:'10px'}} >     
-      <progress value={this.state.progress} max="1000" style={{width:'100%'}}/>
+      <Progress  animated={this.state.upload=="uploading"} color="success" value={this.state.progress} max="1000" style={{width:'100%'}}/>
       </div><div style={{width:'100%', textAlign:'center', margin:'10px 0px'}} >     
     <button onClick={this.handleUpload } disabled={this.state.upload==="upload"?false:true}>{this.state.upload}</button>
       </div><div >   
@@ -243,13 +244,12 @@ componentDidMount(){
       <Button onClick={()=>this.onSubmit(
         title, 
         price, 
-        nights,
-        highlights,
+        highlights,               
         includes, 
         tags,
         images,
         description,
-        ndays,
+        ndays, nights,
          doesnotinclude //9 inputs
         )}>Submit</Button>
       </Container>

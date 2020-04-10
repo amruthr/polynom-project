@@ -35,13 +35,13 @@ export default class Admin extends Component {
     const styles = {
       tabx: {
         cursor: 'pointer',      
-        color:'white',
+        color:'black',
       },
     }
 
     return (
-      <div style={{display:'flex'}}>
-   { !isMobile &&     <Nav vertical style={{background:'#050505'}} className="col-md-2">
+      <div style={{display:isMobile?"":'flex'}}>
+    <Nav vertical={!isMobile} tabs={isMobile} style={{background:'#eee'}} className={isMobile?"":"col-md-2"}>
 {/*           <NavItem>
             <NavLink style={styles.tabx} onClick={() => { this.toggle('1'); }}>
               <b>Orders</b>
@@ -68,8 +68,9 @@ export default class Admin extends Component {
             </NavLink>
           </NavItem>
       </Nav>
- }
-        <TabContent className="col-md-10" style={{height:'-webkit-fill-available'}} activeTab={this.state.activeTab}>
+ 
+
+        <TabContent className={isMobile?" ":"col-md-10"} style={{height:'-webkit-fill-available'}} activeTab={this.state.activeTab}>
 {/*           <TabPane tabId="1">
             <AdminTableOrders stylesTab1={styles.tab1}/>
           </TabPane>

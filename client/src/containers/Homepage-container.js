@@ -14,14 +14,15 @@ const SBPContainerStyles = {
   overflowX:'scroll',
 };
 const spanstyle={
-  border:'solid 1px #376db5',
-  background:'#376db5',
-  borderRadius:'25px',
+  border:'solid 1px darkgreen',
+  background:'darkgreen',
+  borderRadius:'45px',
   margin:'10px 18px',
   height:'60px', width:'60px',
   padding:'6px 16px',
   lineHeight:'1.5',
   color:'#fff',
+  textShadow: '-3px 2px 0px #000',
   fontSize:'30px'
 }
 
@@ -31,13 +32,13 @@ const Homepage = () => (
       <title>Travel Crest </title>
       <meta name="Travel Crest" content="Book international, pilgrimage, and other packages. Travel and related services, online ticket booking, Railway, Hotel booking, Sight seeing, Bus Booking, wanderlust, hiking , trekking, trips, drving, sight seeing" />
     </Helmet>
-    <div>
-      <CarouselHomepage/>
-      <div className="animated wow bounce" style={{width:'100%' , textAlign:'center', padding:'30px 0px 30px 0px', background:'#140d2e00', display:'flex', flexFlow:'row wrap'}}>
-        <Link to="#packages"><div style={spanstyle} className="fa fa-building" ></div></Link>
-        <Link to="/services"><div style={spanstyle} className="fa fa-plane"></div></Link>
-        <Link to="/services"><div style={spanstyle} className="fa fa-hotel"></div></Link>
-        <Link to="/services"><div style={spanstyle} className="fa fa-instagram"></div></Link>
+    <div><div className="animated wow fadeIn" style={{height:'70vh'}}>
+      <CarouselHomepage/></div>
+      <div className="animated wow slideInUp" style={{width:'100%' , textAlign:'center', padding:'30px 0px 30px 0px', background:'#140d2e00', display:'flex', flexFlow:'row wrap'}}>
+        <Link to="#packages"><div style={spanstyle} className="fas fa-hotel3rdcomit" ></div></Link>
+        <Link to="/services"><div style={spanstyle} className="fas fa-plane"></div></Link>
+        <Link to="/services"><div style={spanstyle} className="fas fa-suitcase-rolling"></div></Link>
+        <div onClick={()=>{window.location.href = "https://www.instagram.com/travel_crest_"} }><div style={spanstyle} className="fa fa-instagram"></div></div>
         </div>
    <ShowCategory/>
     </div>

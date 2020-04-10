@@ -95,6 +95,7 @@ router.post('/add/item', (req, res, next)=> {
     images,
     description,
     days,
+    nights,
     doesnotinclude  } = req.body
   const newItem = new ModelProducts({ 
     title,

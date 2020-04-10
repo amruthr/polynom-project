@@ -104,7 +104,7 @@ class CarouselHomepage extends Component {
           key={x.src}
           link={x.caption}
         > <Link to={x.caption}>
-          <Row  style={isMobile?{backgroundColor: '#fff',height:'80vh'}:{backgroundColor: '#050505', height:'750px'}}>
+          <Row  style={isMobile?{backgroundColor: '#fff',height:'70vh'}:{backgroundColor: '#050505', height:'750px'}}>
             <Col md={isMobile?"6":"12"}> 
             <img src={isMobile?x.mobilesrc:x.src} alt={x.altText} style={{ width:'100%', height:'80vh', filter: 'brightness(1)'}}/>
             </Col>
@@ -117,7 +117,7 @@ class CarouselHomepage extends Component {
       
       <Carousel
       ride="carousel"
-      style={{height:'90vh'}}
+      style={{height:'70vh'}}
         activeIndex={activeIndex}
         next={this.next}
         previous={this.previous}
