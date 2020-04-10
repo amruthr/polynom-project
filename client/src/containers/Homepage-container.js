@@ -35,7 +35,7 @@ const Homepage = () => (
     <div><div className="animated wow fadeIn" style={{height:'70vh'}}>
       <CarouselHomepage/></div>
       <div className="animated wow slideInUp" style={{width:'100%' , textAlign:'center', padding:'30px 0px 30px 0px', background:'#140d2e00', display:'flex', flexFlow:'row wrap'}}>
-        <Link to="#packages"><div style={spanstyle} className="fas fa-hotel3rdcomit" ></div></Link>
+        <Link to="#packages"><div style={spanstyle} className="fas fa-hotel" ></div></Link>
         <Link to="/services"><div style={spanstyle} className="fas fa-plane"></div></Link>
         <Link to="/services"><div style={spanstyle} className="fas fa-suitcase-rolling"></div></Link>
         <div onClick={()=>{window.location.href = "https://www.instagram.com/travel_crest_"} }><div style={spanstyle} className="fa fa-instagram"></div></div>
