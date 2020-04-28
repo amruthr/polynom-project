@@ -3,72 +3,12 @@ import { Switch, Route } from 'react-router-dom';
 import Empty from './components/Empty';
 import Loadable from 'react-loadable';
 import LoadingGif from './components/Loading-gif'
-import NavbarContainer from './containers/Navbar-container';
-import Footer from './components/Footer';
-import SupportHelp from './components/Support-help';
-
-import './style/transition.css';
-
 
 const Loading = () => <div style={{height: '1000px', }}><LoadingGif/></div>;
 
-const ItemContainer = Loadable({
-  loader: () => import('./containers/Item-container'),
-  loading: Loading
-});
-
-const CheckoutContainer = Loadable({
-  loader: () => import('./containers/Checkout-container'),
-  loading: Loading
-});
-
-const CartContainer = Loadable({
-  loader: () => import('./containers/Cart-container'),
-  loading: Loading
-});
-
-const HomepageContainer = Loadable({
-  loader: () => import('./containers/Homepage-container'),
-  loading: Loading
-});
 
 const MainPage = Loadable({
   loader: () => import('./containers/Main-container.jsx'),
-  loading: Loading
-});
-
-const ItemsListContainer = Loadable({
-  loader: () => import('./containers/Items-list-container'),
-  loading: Loading
-});
-
-const Story = Loadable({
-  loader: () => import('./components/stories'),
-  loading: Loading
-});
-
-const ItemsListGenderHomepage = Loadable({
-  loader: () => import('./components/Items-list-gender-homepage'),
-  loading: Loading
-});
-
-const AdminContainer = Loadable({
-  loader: () => import('./containers/Admin-container'),
-  loading: Loading
-});
-
-const Secret = Loadable({
-  loader: () => import('./components/Secret'),
-  loading: Loading
-});
-
-const Register = Loadable({
-  loader: () => import('./components/register'),
-  loading: Loading
-});
-
-const confirm = Loadable({
-  loader: () => import('./components/confirm'),
   loading: Loading
 });
 
@@ -77,17 +17,7 @@ const Router = () => (
    {/*  <NavbarContainer /> */}
       <Switch>
          <Route exact path='/' component={MainPage} />
-       {/* <Route exact path='/productslist' component={ItemsListContainer} />
-        <Route exact path='/item/:id/:item' component={ItemContainer} />
-        <Route exact path='/checkout' component={CheckoutContainer} />*/}
-        <Route exact path='/stories' component={Story} />
-        <Route exact path='/package/:gender' component={ItemContainer} />
-        <Route exact path='/packages/:gender' component={ItemsListGenderHomepage} /> 
-        <Route exact path='/admin' component={AdminContainer} /> 
-        <Route exact path='/dashboard' component={Secret} /> 
-        <Route exact path='/register' component={Register} /> 
-        <Route exact path='/confirm' component={confirm} /> 
-        <Route component={Empty}/>
+     
       </Switch>
     {/*   <SupportHelp /> */}
    {/*  <Footer /> */}

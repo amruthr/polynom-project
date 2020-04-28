@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import Router from './Router';
-import { Store } from './storeConfig'
+
 
 
 if ("serviceWorker" in navigator) {
@@ -18,7 +18,7 @@ if ("serviceWorker" in navigator) {
 }
 
 ReactDOM.render(
-  <Provider store={Store}>
+  <Provider >
     <BrowserRouter>
       <Router />
     </BrowserRouter>
