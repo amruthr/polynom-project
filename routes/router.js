@@ -7,6 +7,7 @@ const ModelLog = require('../models/ModelLog');
 const ModelOrders = require('../models/ModelOrders');
 const ModelCategories = require('../models/ModelCategory');
 const ModelCarousel = require('../models/ModelCarouselData');
+const ModelServices = require('../models/ModelServices')
 
 router.get('/carouselData', (req, res)=>{
   ModelCarousel.find((err, x) => {
@@ -181,6 +182,38 @@ router.get('/category', (req, res)=> {
 })
 })
 
+router.get('/services/:id', (req, res)=> {
+  ModelServices.findById(req.params.id)
+    .then(x => {
+      if (!x) return res.status(404).end()
+      return res.json(x)
+    })
+    .catch(err => next(err))
+})
+
+router.get('/services', (req, res)=> {
+  ModelServices.find((err, x) => {
+    err ? res.status(500).send(err) :
+    res.json(x).status(200)
+})
+})
+
+router.post('/services', (req, res, next)=> {
+  const { iconsrc,
+    bannersrc,
+    title,
+    body } = req.body
+  const newService = new ModelServices({ 
+    iconsrc,
+    bannersrc,
+    title,
+    body
+  });
+  newService.save((err, saveditem) => {
+    if (err) return console.log(err);
+    res.end();
+  })
+})
 
 router.get('/shopbyprice', (req, res)=> {
   ModelProducts.aggregate([{$group:{_id:{$arrayElemAt:["$tags",0]}, price:{$min:"$price"}, images:{$max:"$images"},subcats: {$addToSet:"$title"}}}],(err, x) => {

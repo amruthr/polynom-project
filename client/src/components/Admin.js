@@ -5,6 +5,7 @@ import AdminFormAddItem from './Admin-form-add-item'
 import AdminHistoryLog from './Admin-history-log'
 import AdminNotification from './Admin-notification'
 import AdminPromos from './Admin-promos'
+import AdminAddService from './Admin-add-services'
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import {
   isMobile
@@ -67,6 +68,11 @@ export default class Admin extends Component {
               <b>Marketing & Notification</b>
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink style={styles.tabx} onClick={() => { this.toggle('6'); }}>
+              <b>Add new service</b>
+            </NavLink>
+          </NavItem>
       </Nav>
  
 
@@ -85,6 +91,9 @@ export default class Admin extends Component {
           </TabPane> 
           <TabPane tabId="5">
             <AdminNotification stylesTab4={styles.tab4} />
+          </TabPane> 
+          <TabPane tabId="6">
+            <AdminAddService stylesTab4={styles.tab4} />
           </TabPane> 
         </TabContent>
       </div>

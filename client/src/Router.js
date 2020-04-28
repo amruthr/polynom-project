@@ -5,6 +5,8 @@ import Loadable from 'react-loadable';
 import LoadingGif from './components/Loading-gif'
 import NavbarContainer from './containers/Navbar-container';
 import Footer from './components/Footer';
+import SupportHelp from './components/Support-help';
+
 import './style/transition.css';
 
 
@@ -30,8 +32,18 @@ const HomepageContainer = Loadable({
   loading: Loading
 });
 
+const MainPage = Loadable({
+  loader: () => import('./containers/Main-container.jsx'),
+  loading: Loading
+});
+
 const ItemsListContainer = Loadable({
   loader: () => import('./containers/Items-list-container'),
+  loading: Loading
+});
+
+const Story = Loadable({
+  loader: () => import('./components/stories'),
   loading: Loading
 });
 
@@ -62,13 +74,13 @@ const confirm = Loadable({
 
 const Router = () => (
   <div>
-    <NavbarContainer />
+   {/*  <NavbarContainer /> */}
       <Switch>
-         <Route exact path='/' component={HomepageContainer} />
+         <Route exact path='/' component={MainPage} />
        {/* <Route exact path='/productslist' component={ItemsListContainer} />
         <Route exact path='/item/:id/:item' component={ItemContainer} />
-        <Route exact path='/checkout' component={CheckoutContainer} />
-        <Route exact path='/cart' component={CartContainer} />*/}
+        <Route exact path='/checkout' component={CheckoutContainer} />*/}
+        <Route exact path='/stories' component={Story} />
         <Route exact path='/package/:gender' component={ItemContainer} />
         <Route exact path='/packages/:gender' component={ItemsListGenderHomepage} /> 
         <Route exact path='/admin' component={AdminContainer} /> 
@@ -77,7 +89,8 @@ const Router = () => (
         <Route exact path='/confirm' component={confirm} /> 
         <Route component={Empty}/>
       </Switch>
-    <Footer />
+    {/*   <SupportHelp /> */}
+   {/*  <Footer /> */}
   </div>
 );
 

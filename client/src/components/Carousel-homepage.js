@@ -12,6 +12,7 @@ import {
 } from 'reactstrap';
 import ButtonInternalLink from './Button-internal-link';
 import { Link } from 'react-router-dom';
+var color   = require('dominant-color')
 const styles = {
   sliderContent: {
     display: 'flex',
@@ -92,43 +93,30 @@ class CarouselHomepage extends Component {
     if (this.animating) return;
     this.setState({ activeIndex: newIndex });
   }
-
+  
   render() {
     const { activeIndex } = this.state;
     const {items} = this.state;
-    const slides = items.map(x => {
+    const slides =  items.map(x => { 
       return (
-       <CarouselItem 
-          onExiting={this.onExiting}
-          onExited={this.onExited}
-          key={x.src}
-          link={x.caption}
-        > <Link to={x.caption}>
-          <Row  style={isMobile?{backgroundColor: '#fff',height:'70vh'}:{backgroundColor: '#050505', height:'750px'}}>
+       <div        
+          key={x.src}>
+             <Link to={'stories?s='+x.src}>      
             <Col md={isMobile?"6":"12"}> 
-            <img src={isMobile?x.mobilesrc:x.src} alt={x.altText} style={{ width:'100%', height:'80vh', filter: 'brightness(1)'}}/>
-            </Col>
-          </Row>
-          </Link> </CarouselItem>
+            <img src={isMobile?x.mobilesrc:x.src} alt={x.altText}
+             style={{ width:isMobile?'100%':'auto',
+             height:'30vh', filter: 'brightness(1)', margin:'0px 10px', borderRadius:'10px',
+             boxShadow:'0px 10px 20px grey'}}/>
+            </Col>      
+          </Link> </div>
       );
-    });
+      });
 
     return (
       
-      <Carousel
-      ride="carousel"
-      style={{height:'70vh'}}
-        activeIndex={activeIndex}
-        next={this.next}
-        previous={this.previous}
-        keyboard ={true}
-        autoPlay={false}
-      >
+      <div style={{height:'30vh', display:'flex',margin:'5px 0px', width:items.length*40+"%",}}  >
         {slides}
-        <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
-        {/* <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} /> */}
-      </Carousel>      
+      </div>      
     );
   }
 }

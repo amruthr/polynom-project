@@ -25,7 +25,7 @@ export default class Category extends Component {
     } catch (error) {
       console.log(error);
     }
-
+!messaging?alert("Notifications not supported"):
     messaging.requestPermission()
     .then(async function() {
       const token = await messaging.getToken().then((currentToken) => {
@@ -46,7 +46,6 @@ export default class Category extends Component {
     });
   navigator.serviceWorker.addEventListener("message", (message) => console.log(message)); 
   messaging.onMessage((payload) => alert('Message received. ', payload));
-  
   }
 
   render() {
@@ -69,13 +68,13 @@ export default class Category extends Component {
       position:'relative',  width:'100%', marginBottom:'10vh',}}> 
         {
           apiList.map((x, index)=>               
-            <div  className={`wow animated fadeIn`} style={{background:'#3e39dc00',
+            <div  className={`wow animated fadeIn`} style={{
              backgroundRepeat:'round', width:isMobile?'100%':'31%', 
-             borderRadius:'20px', border:'none',margin:'1px 1px 40px 1px',minHeight:'300px', padding:'10px', 
+             borderRadius:'20px',height:'fit-content', border:'none',margin:'1px 10px 40px 10px',minHeight:'300px', padding:'10px', 
               position:'relative'}} key={x._id}>              
               { <Link to={`/packages/${x._id}`} style={{color:'#000', textDecoration:'none',}}>  
               {}
-              <img src ={x.images[0]}  style={{width: '100%',borderRadius:'20px',}} />         
+              <img src ={x.images[0]}  style={{width: '100%', height:!isMobile&&'250px' , borderRadius:'20px',}} />         
               <div style={{ top: '30px', position:'absolute', fontSize:'80%', }}>                               
         {isAdmin &&  <EditCategory infos={x} /> }
            {x.subcats && x.subcats.map((item, ind)=>
